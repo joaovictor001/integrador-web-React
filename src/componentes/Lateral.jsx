@@ -23,6 +23,12 @@ export function Lateral() {
                 <Link className={estilos.botao} to='/cadUsuario'>
                     Cadastrar Usuário
                 </Link>
+                <Link 
+                    className={estilos.botao}
+                    to='/home/localizacao'
+                >Mapa
+                </Link>
+
                 <Link className={estilos.botao} to='/'>
                     Sair
                 </Link>

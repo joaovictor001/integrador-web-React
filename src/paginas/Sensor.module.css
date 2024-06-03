@@ -1,0 +1,8 @@
+.conteiner{
+    background-color: var(--cinza-claro);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 5px;
+}

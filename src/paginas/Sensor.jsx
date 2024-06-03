@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import estilos from './Sensor.module.css';
+import { Sensores } from "../componentes/sensores_card";
 
 export function Sensor() {
     const [sensores, setSensores] = useState([]);
@@ -41,34 +42,8 @@ export function Sensor() {
     }
 
     return (
-        <div className={estilos.container}>
-            <h1>Sensores</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Localização</th>
-                        <th>Responsável</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Alterar dados</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sensores.map(sensor => (
-                        <tr key={sensor.id}>
-                            <td>{sensor.id}</td>
-                            <td>{sensor.tipo}</td>
-                            <td>{sensor.localizacao}</td>
-                            <td>{sensor.responsavel}</td>
-                            <td>{sensor.latitude}</td>
-                            <td>{sensor.longitude}</td>
-                            <td>Alterar</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <main className={estilos.container}>
+             {sensores.map(umSensor=> <Sensores propsSensores={umSensor} /> ) }
+        </main>
     );
 }
