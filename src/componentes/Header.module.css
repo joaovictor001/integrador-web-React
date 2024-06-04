@@ -1,13 +1,22 @@
-.container {
-    background-color: var(--roxo-escuro);
+
+
+.conteiner {
+    background-color: #34495e; /* Azul escuro para combinar com o tema de filmes */
     display: flex;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
-}
-
-.container p {
-    font-size: 2rem;
-    color: var(--cinza-claro);
-    margin-right: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  header{
+    background-color: #667eea;
+    border-radius: 10px;
+  }
+  
+  .conteiner p {
+    font-size: 2rem; /* Reduzindo o tamanho da fonte para o cabeçalho */
+    color: #ecf0f1; /* Texto claro para contraste */
     margin: 0 16px;
-}
+  }
+  

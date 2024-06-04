@@ -4,7 +4,7 @@ import estilos from './Login.module.css';
 import { useForm } from 'react-hook-form';
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
  
 const schemaLogin = z.object({
     usuario:z.string()
@@ -41,7 +41,7 @@ export function Login(){
  
     return(
         <div className={estilos.conteiner}>
-            <p className={estilos.titulo}>Login</p>
+            
  
             <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
                 <input
@@ -62,7 +62,13 @@ export function Login(){
                     <p>{errors.senha.message}</p>
                 )}
                 <button className={estilos.botao}>Entrar</button>
+                <Link 
+                    className={estilos.botao}
+                        to='/cadastroUser'
+                    >Cadastre-se
+                    </Link>
             </form>
+                
         </div>
     );
  
