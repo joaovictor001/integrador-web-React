@@ -1,8 +1,25 @@
-.conteiner{
-    background-color: var(--cinza-claro);
+.container {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: stretch;
-    padding: 5px;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+}
+
+.table {
+    width: 80%; /* Define a largura da tabela */
+    margin-top: 20px; /* Adiciona um espaço acima da tabela */
+}
+
+.table th,
+.table td {
+    padding: 8px; /* Adiciona preenchimento interno às células */
+    border: 1px solid #ddd; /* Adiciona bordas às células */
+    text-align: center; /* Centraliza o texto dentro das células */
+}
+
+.table th {
+    background-color: #f2f2f2; /* Adiciona uma cor de fundo aos cabeçalhos */
+}
+
+.table td a {
+    color: blue; /* Define a cor dos links */
 }

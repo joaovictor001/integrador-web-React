@@ -1,12 +1,11 @@
 #root {
-  
   text-align: center;
-  background-color: #475fc8;
+  background-color:   white
+  ;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+
   will-change: filter;
   transition: filter 300ms;
 }
@@ -31,9 +30,6 @@
     animation: logo-spin infinite 20s linear;
   }
 }
-
-
-
 
 .read-the-docs {
   color: #888;

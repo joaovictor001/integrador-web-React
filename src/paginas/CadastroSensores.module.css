@@ -1,50 +1,54 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vh;
-    height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-  
-  .formulario {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-  }
-  
-  .titulo {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 30px;
-  }
-  
-  .campo {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 16px;
-  }
-  
-  .botao {
-    width: 100%;
-    padding: 15px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .botao:hover {
-    background-color: #43a047;
-  }
-  
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100vh; /* Define a altura do container para ocupar toda a altura da viewport */
+}
+
+.formulario {
+  width: 80%; /* Define a largura do formulário */
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  background-color: #a19e9e;
+}
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+
+.campo {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.botao {
+  padding: 10px 20px; /* Define o preenchimento interno do botão */
+  font-size: 16px; /* Define o tamanho da fonte do botão */
+  width: 100%;
+  padding: 15px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.titulo {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}

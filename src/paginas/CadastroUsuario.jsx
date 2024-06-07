@@ -1,84 +1,105 @@
-import  React from 'react';
+import React, { useEffect } from 'react';
 import axios from "axios";
 import estilos from './Login.module.css';
 import { useForm } from 'react-hook-form';
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom'
- 
-const schemaLogin = z.object({
-    usuario:z.string()
-            .min(1, "O minimo é de 5 caracteres")
-            .max(15, "O maximo são 15 caracteres"),
+import { useNavigate } from 'react-router-dom';
 
-    senha:z.string()
-            .min(2, "Informe 4 caracteres")
-            .max(20, "O maximo são 8 caracteres"),
+const schemaLogin = z.object({
+    usuario: z.string()
+        .min(1, "O mínimo é de 5 caracteres")
+        .max(15, "O máximo são 15 caracteres"),
+    senha: z.string()
+        .min(2, "Informe no mínimo 4 caracteres")
+        .max(20, "O máximo são 8 caracteres"),
     email: z.string()
-            .email({ message: 'Por favor, insira um e-mail válido' })
+        .email({ message: 'Por favor, insira um e-mail válido' })
 });
- 
-export function CadastroUsuario(){
+
+export function CadastroUsuario() {
     const navigate = useNavigate();
-    const {register, handleSubmit, formState:{ errors }} =useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schemaLogin)
     });
- 
-    async function obterDadosFormulario(data){
-        try{
-            const response = await axios.post('http://127.0.0.1:8000/api/create_user', {
-                username: data.usuario,
-                email:data.email,
-                password: data.senha
+
+    const obterToken = async () => {
+        try {
+            console.log("Tentando obter token...");
+            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
+                username: "joaozin_do_grau",
+                password: "123"
             });
-            const { access, refresh} = response.data;
+            const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
- 
-            console.log("Cadastor bem sucedido");
+            console.log("Token obtido com sucesso");
+        } catch (error) {
+            console.error('Erro ao obter token:', error);
+        }
+    };
+
+    useEffect(() => {
+        obterToken();
+    }, []);
+
+    async function obterDadosFormulario(data) {
+        try {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                throw new Error("Token não encontrado. Por favor, tente novamente.");
+            }
+
+            const response = await axios.post('http://127.0.0.1:8000/api/create_user/', 
+            {
+                username: data.usuario,
+                email: data.email,
+                password: data.senha
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            console.log("Cadastro bem sucedido", response.data);
             navigate('/');
-            }
-            catch(error){
-                    console.log("Erro na autenticação", error);
-            }
+        } catch (error) {
+            console.log("Erro na autenticação", error);
+        }
     }
- 
-    return(
+
+    return (
         <div className={estilos.conteiner}>
-            
- 
             <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
                 <input
                     {...register('usuario')}
                     className={estilos.campo}
-                    placeholder = "Usuário"                
+                    placeholder="Usuário"
                 />
-                {errors.usuario &&(
+                {errors.usuario && (
                     <p>{errors.usuario.message}</p>
                 )}
                 <input
                     {...register('email')}
-                    type = "email"
+                    type="email"
                     className={estilos.campo}
                     placeholder="E-mail"
                 />
-                {errors.email &&(
+                {errors.email && (
                     <p>{errors.email.message}</p>
                 )}
                 <input
                     {...register('senha')}
-                    type = "password"
+                    type="password"
                     className={estilos.campo}
                     placeholder="Senha"
                 />
-                {errors.senha &&(
+                {errors.senha && (
                     <p>{errors.senha.message}</p>
                 )}
-                <button className={estilos.botao}>Entrar</button>
+                <button type="submit" className={estilos.botao}>Entrar</button>
             </form>
         </div>
     );
- 
- 
 }
- 

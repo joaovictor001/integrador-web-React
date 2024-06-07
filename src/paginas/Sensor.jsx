@@ -1,8 +1,7 @@
-
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import estilos from './Sensor.module.css';
-import { Sensores } from "../componentes/sensores_card";
+import { Link } from 'react-router-dom';
 
 export function Sensor() {
     const [sensores, setSensores] = useState([]);
@@ -25,25 +24,48 @@ export function Sensor() {
                 setLoading(false);
             }
         }
+
         fetchSensores();
     }, []);
 
     if (loading) {
-        return <div className={estilos.loading}>Carregando</div>;
+        return <div>Carregando...</div>;
     }
 
     if (error) {
-        return <div className={estilos.error}>Erro ao carregar os dados: {error.message}</div>;
-    }
-
-    // Add a guard clause to check if sensores is an array
-    if (!Array.isArray(sensores)) {
-        return <div className={estilos.error}>Erro: dados de sensores inválidos</div>;
+        return <div>Erro ao carregar os dados: {error.message}</div>;
     }
 
     return (
-        <main className={estilos.container}>
-             {sensores.map(umSensor=> <Sensores propsSensores={umSensor} /> ) }
-        </main>
+        <div className={estilos.container}>
+            
+            <table className={estilos.table}>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Localização</th>
+                        <th>Responsável</th>
+                        <th>Longitude</th>
+                        <th>Latitude</th>
+                        <th>Alterar Dados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {sensores.map(sensor => (
+                        <tr key={sensor.id}>
+                            <td>{sensor.id}</td>
+                            <td>{sensor.tipo}</td>
+                            <td>{sensor.localizacao}</td>
+                            <td>{sensor.responsavel}</td>
+                            <td>{sensor.longitude}</td>
+                            <td>{sensor.latitude}</td>
+                            
+                            <td><Link to={`/home/atualizarSensor/${sensor.id}`}>Alterar </Link></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }

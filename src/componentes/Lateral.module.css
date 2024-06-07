@@ -1,7 +1,7 @@
 .container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #2e2c2c;
   padding: 20px;
-  border-radius: 10px;
+
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   width: 250px;
   color: #fff;
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  background-color: #43a04800;
+  background-color: #2e2c2c;
 }
 
 .avatar {
@@ -24,7 +24,7 @@
 
 .perfil p {
   font-size: 18px;
-  color: black;
+  color: white;
 }
 
 section {
@@ -34,7 +34,7 @@ section {
 
 .botao {
   padding: 10px;
-  background-color: #4caf50;
+ 
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -46,5 +46,5 @@ section {
 }
 
 .botao:hover {
-  background-color: #43a047;
+  background-color: #33488f;
 }

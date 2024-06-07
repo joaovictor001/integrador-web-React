@@ -43,14 +43,10 @@ export function CadastroSensores() {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );
-            const { access, refresh } = response.data;
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-
             console.log("Cadastro bem-sucedido");
             navigate('/');
         } catch (error) {

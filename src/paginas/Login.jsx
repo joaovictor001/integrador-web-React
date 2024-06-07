@@ -1,77 +1,72 @@
-import  React from 'react';
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 import estilos from './Login.module.css';
 import { useForm } from 'react-hook-form';
-import { z } from "zod";
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate,Link } from 'react-router-dom'
- 
+import { useNavigate, Link } from 'react-router-dom';
+
 const schemaLogin = z.object({
-    usuario:z.string()
-            .min(1, "O minimo é de 5 caracteres")
-            .max(15, "O maximo são 15 caracteres"),
-    senha:z.string()
-            .min(2, "Informe 4 caracteres")
-            .max(20, "O maximo são 8 caracteres"),
+    usuario: z.string()
+        .min(2, "O mínimo é de 5 caracteres")
+        .max(15, "O máximo são 15 caracteres"),
+    senha: z.string()
+        .min(1, "Informe no mínimo 4 caracteres")
+        .max(20, "O máximo são 20 caracteres"),
 });
- 
-export function Login(){
+
+export function Login() {
     const navigate = useNavigate();
-    const {register, handleSubmit, formState:{ errors }} =useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schemaLogin)
     });
- 
-    async function obterDadosFormulario(data){
-        try{
-            const response = await axios.post('http://127.0.0.1:8000/api/token', {
+
+    async function obterDadosFormulario(data) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
                 username: data.usuario,
                 password: data.senha
             });
-            const { access, refresh} = response.data;
+            const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
- 
-            alert("Login bem sucedido");
+
             navigate('home');
-            }
-            catch(error){
-                    alert("Erro na autenticação", error);
-            }
+        } catch (error) {
+            alert("Erro na autenticação: " + (error.response?.data?.detail || error.message));
+        }
     }
- 
-    return(
+
+    return (
         <div className={estilos.conteiner}>
-            
- 
             <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
                 <input
                     {...register('usuario')}
                     className={estilos.campo}
-                    placeholder = "Usuário"                
+                    placeholder="Usuário"
+                    value={"joao"}
                 />
-                {errors.usuario &&(
+                {errors.usuario && (
                     <p>{errors.usuario.message}</p>
                 )}
                 <input
                     {...register('senha')}
-                    type = "password"
+                    type="password"
                     className={estilos.campo}
                     placeholder="Senha"
+                    value={123}
                 />
-                {errors.senha &&(
+                {errors.senha && (
                     <p>{errors.senha.message}</p>
                 )}
                 <button className={estilos.botao}>Entrar</button>
-                <Link 
+                <Link
                     className={estilos.botao}
-                        to='/cadastroUser'
-                    >Cadastre-se
-                    </Link>
+                    to='/cadastroUser'
+                >
+                    Cadastre-se
+                </Link>
             </form>
-                
         </div>
     );
- 
- 
 }
- 

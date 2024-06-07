@@ -1,38 +1,69 @@
-/* Filme.module.css */
+/* Sensores.module.css */
+.container {
+  background-color: #fff; /* Fundo branco para o container */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(0, 0, 0); /* Adicionado para alterar a cor do texto */
+}
 
-.conteiner {
-    background-color: #34495e; /* Azul escuro para combinar com a atmosfera do cinema */
-    color: #ecf0f1; /* Texto claro para contraste */
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .conteiner:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
-  }
-  
-  .conteiner img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .conteiner img:hover {
-    transform: scale(1.05); /* Efeito de zoom suave no hover */
-  }
-  
-  .conteiner figcaption {
-    margin-top: 15px;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .conteiner p {
-    margin-top: 10px;
-    font-size: 1rem;
-  }
-  
-  
+.identificador {
+  color: #000000; /* Cor do identificador */
+  font-size: 18px; /* Modificado o tamanho da fonte */
+  font-weight: 300; /* Adicionada a propriedade font-weight */
+  margin-bottom: 10px;
+}
+
+.icone {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background: linear-gradient(90deg, rgb(211, 9, 127) 9%, rgb(216, 111, 176) 100%); /* Gradiente rosa */
+  margin-bottom: 20px; /* Movido de .icone para .container */
+  color: #fff;
+}
+
+.containerInfo {
+  width: 95%;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+.campo {
+  padding: 6px;
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.botao {
+  display: flex;
+  background-color: #131012; /* Substituindo a variável azul por rosa */
+  width: 95%;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: #f1ebeb;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao:hover {
+  background: linear-gradient(90deg, rgb(211, 9, 127) 9%, rgb(216, 111, 176) 100%); /* Gradiente rosa */
+}

@@ -1,156 +1,117 @@
-import React from 'react';
-import axios from "axios";
-import estilos from './CadastroSensores.module.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import estilos from './AtualizarSensores.module.css';
 import { useForm } from 'react-hook-form';
-import { z } from "zod";
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
 
-
-
-const schemaCadastro = z.object({
-    tipo: z.string(),
-    mac_address: z.string(),
-    latitude: z.number(),
-    longitude: z.number(),
-    localizacao: z.string(),
-    responsavel: z.string(),
-    unidade_medida: z.string(),
+// Schema de validação do formulário para checagem dos valores que foram colocados no form
+const schemaAlterarSensor = z.object({
+    mac_address: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
+    latitude: z.number().refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
+    longitude: z.number().refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
+    localizacao: z.string().max(100, 'Máximo de 100 caracteres'),
+    responsavel: z.string().max(100, 'Máximo de 100 caracteres'),
+    unidade_medida: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
     status_operacional: z.boolean(),
-    observacao: z.string()
+    observacao: z.string().nullable(),
+    tipo: z.string().optional()
 });
 
-export function atualizarSensores() {
+export function AtualizarSensores() {
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(schemaCadastro)
+    const { id } = useParams(); // Pegando o ID da URL
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: zodResolver(schemaAlterarSensor) // Chamar o schema e ver os erros possíveis
     });
 
-    async function obterDadosFormulario(data) {
+    // Faço uma consulta do sensor do ID passado (chave)
+    const obterDadosSensor = async () => {
         try {
-            const response = await axios.post(
-                'http://127.0.0.1:8000/api/sensores/',
-                {
-                    tipo: data.tipo,
-                    mac_address: data.mac_address,
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    localizacao: data.localizacao,
-                    responsavel: data.responsavel,
-                    unidade_medida: data.unidade_medida,
-                    status_operacional: data.status_operacional,
-                    observacao: data.observacao
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+            const token = localStorage.getItem('access_token');
+            const response = await axios.get(`http://127.0.0.1:8000/api/sensores/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            );
-            const { access, refresh } = response.data;
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-            alert("Sensor cadastrado com sucesso")
-            navigate('/home/localizacao');
-        } catch (error) {
-            console.log("Erro no cadastro", error);
+            });
+            const sensorData = response.data;
+            Object.keys(sensorData).forEach(key => {
+                setValue(key, sensorData[key]);
+            });
+        } catch (err) {
+            console.error('Erro ao obter o sensor', err);
         }
-    }
+    };
+
+    // Exibo em tela os dados do ID passado
+    useEffect(() => {
+        obterDadosSensor();
+    }, [id]);
+
+    // Pego os dados colocados no formulário e passo para o PUT. O data aqui é o conjunto de informações do form
+    const onSubmit = async (data) => {
+        // Convertendo latitude e longitude para números
+        data.latitude = parseFloat(data.latitude);
+        data.longitude = parseFloat(data.longitude);
+
+        console.log("Dados enviados para o PUT:", data);
+        try {
+            const token = localStorage.getItem('access_token');
+            // Chamo a API passando "data"
+            await axios.put(`http://127.0.0.1:8000/api/sensores/${id}/`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            alert('Sensor alterado com sucesso!');
+            navigate('/home');
+        } catch (error) {
+            console.error('Erro ao alterar o sensor', error);
+        }
+    };
 
     return (
-        <div className={estilos.container}>
-            <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
-                <input
-                    {...register('tipo')}
-                    className={estilos.campo}
-                    placeholder="Tipo"
-                    
-                />
-                {errors.tipo &&(
-                    <p>{errors.tipo.message}</p>
-                )}
-                <input
-                    {...register('mac_address')}
-                    className={estilos.campo}
-                    placeholder="mac_address"
-                    type='number'
-                    
-                />
-                {errors.mac_address &&(
-                    <p>{errors.mac_address.message}</p>
-                )}
-                <input
-                    {...register('latitude')}
-                    className={estilos.campo}
-                    placeholder="latitude"
-                    
-                />
-                {errors.latitude &&(
-                    <p>{errors.latitude.message}</p>
-                )}
-                <input
-                    {...register('longitude')}
-                    className={estilos.campo}
-                    placeholder="longitude"
-                   
-                />
-                {errors.longitude &&(
-                    <p>{errors.longitude.message}</p>
-                )}
-                <input
-                    {...register('localizacao')}
-                    className={estilos.campo}
-                    placeholder="localizacao"
-                   
-                />
-                {errors.localizacao &&(
-                    <p>{errors.localizacao.message}</p>
-                )}
-                <input
-                    {...register('responsavel')}
-                    className={estilos.campo}
-                    placeholder="responsavel"
-                   
-                />
-                {errors.responsavel &&(
-                    <p>{errors.responsavel.message}</p>
-                )}
-                <input
-                    {...register('unidade_medida')}
-                    className={estilos.campo}
-                    placeholder="unidade_medida"
-                   
-                />
-                {errors.unidade_medida &&(
-                    <p>{errors.unidade_medida.message}</p>
-                )}
-                <input
-                    
-                    {...register('status_operacional')}
-                    className={estilos.campo}
-                    placeholder="status_operacional"
-                    type="checkbox"
-                    
-                />
-                {errors.status_operacional &&(
-                    <p>{errors.status_operacional.message}</p>
-                )}
-                <input
-                    {...register('observacao')}
-                    className={estilos.campo}
-                    placeholder="Observação"
-                    
-                />
-                {errors.observacao &&(
-                    <p>{errors.observacao.message}</p>
-                )}
-                <button
-                    className={estilos.botao}
-                    type="submit"
-                >
-                    Cadastrar
-                </button>
+        <div className={estilos.conteiner}>
+            <p className={estilos.titulo}>Edição de Sensor</p>
+            <form className={estilos.formulario} onSubmit={handleSubmit(onSubmit)}>
+                <select {...register('tipo')} className={estilos.campo}>
+                    <option value="">Selecione o tipo de sensor</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Contador">Contador</option>
+                    <option value="Luminosidade">Luminosidade</option>
+                    <option value="Umidade">Umidade</option>
+                </select>
+                {errors.tipo && <p className={estilos.mensagem}>{errors.tipo.message}</p>}
+
+                <input {...register('mac_address')} className={estilos.campo} placeholder="MAC Address" />
+                {errors.mac_address && <p className={estilos.mensagem}>{errors.mac_address.message}</p>}
+
+                <input {...register('latitude')} className={estilos.campo} placeholder="Latitude (Ex: 123.456)" />
+                {errors.latitude && <p className={estilos.mensagem}>{errors.latitude.message}</p>}
+
+                <input {...register('longitude')} className={estilos.campo} placeholder="Longitude (Ex: -45.678)" />
+                {errors.longitude && <p className={estilos.mensagem}>{errors.longitude.message}</p>}
+
+                <input {...register('localizacao')} className={estilos.campo} placeholder="Localização" />
+                {errors.localizacao && <p className={estilos.mensagem}>{errors.localizacao.message}</p>}
+
+                <input {...register('responsavel')} className={estilos.campo} placeholder="Responsável" />
+                {errors.responsavel && <p className={estilos.mensagem}>{errors.responsavel.message}</p>}
+
+                <input {...register('unidade_medida')} className={estilos.campo} placeholder="Unidade de Medida" />
+                {errors.unidade_medida && <p className={estilos.mensagem}>{errors.unidade_medida.message}</p>}
+
+                <label className={estilos.campoCheckbox}>
+                    Status Operacional:
+                    <input {...register('status_operacional')} type="checkbox" />
+                </label>
+
+                <textarea {...register('observacao')} className={estilos.campo} placeholder="Observação"></textarea>
+                {errors.observacao && <p className={estilos.mensagem}>{errors.observacao.message}</p>}
+
+                <button type="submit" className={estilos.botao}>Salvar Alterações</button>
             </form>
         </div>
     );
-}    
+}

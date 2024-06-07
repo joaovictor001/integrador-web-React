@@ -5,8 +5,9 @@ import {Home} from '../paginas/Home'
 import {Sensor} from '../paginas/Sensor'
 import { Localizacao } from "../paginas/Localizacao"
 import { CadastroUsuario } from "../paginas/CadastroUsuario"
+import { AtualizarSensores } from "../paginas/AtualizarSensores"
 import { CadastroSensores } from "../paginas/CadastroSensores"
-import { atualizarSensores } from "../paginas/AtualizarSensores"
+
 import { Filtro } from "../paginas/Filtro"
 
 
@@ -17,7 +18,7 @@ export function Rotas() {
 
             <Route path='/' element={<Login />} />
             <Route path='/cadastroUser' element={<CadastroUsuario />} />
-            <Route path='/cadastroSensor' element={<CadastroSensores />} />
+         
 
 
             <Route path='/home' element={<Home />}>
@@ -25,7 +26,7 @@ export function Rotas() {
                 <Route path='localizacao' element={ <Localizacao /> } />
                 <Route path='cadUser' element={<CadastroUsuario/>}/>
                 <Route path='cadSensor' element={<CadastroSensores/>}/>
-                <Route path='atualizarSensor' element={<CadastroSensores/>}/>
+                <Route path='atualizarSensor/:id' element={<AtualizarSensores/>}/>
                 <Route path='Filtro' element={<Filtro/>}/>
 
                

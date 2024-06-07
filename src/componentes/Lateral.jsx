@@ -8,10 +8,10 @@
                     <div className={estilos.perfil}>
                         <img
                             className={estilos.avatar}
-                            src='https://avatars.githubusercontent.com/u/148149959?v=4'
+                            src='https://avatars.githubusercontent.com/u/74721656?v=4'
                         />
 
-                        <p>Murilo</p>
+                        <p>João Victor</p>
 
                     </div>
 
@@ -36,11 +36,7 @@
                         to='/home/cadSensor'
                     >Cadastrar Sensor
                     </Link>
-                    <Link 
-                        className={estilos.botao}
-                        to='/home/atualizaSensor'
-                    >Atualizar Sensor
-                    </Link>
+                
                     <Link 
                         className={estilos.botao}
                         to='/home/Filtro'

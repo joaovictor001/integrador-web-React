@@ -45,37 +45,59 @@ export function Filtro() {
     };
  
     return (
-        <div className={estilos.container}>
+        <body className={estilos.body}>
+            <div className={estilos.container}>
             <form onSubmit={handleSubmit} className={estilos.formulario}>
  
-                    <label>Responsável</label>
-                    <input className={estilos.campo} type="text" name="responsavel" value={filters.responsavel} onChange={handleChange} />
+                    <h2 className={estilos.titulos}>Preencha os campos para filtrar...</h2>
  
-                    <label className={estilos.campoCheckbox}  >Status Operacional *</label>
-                    <input  type="checkbox" name="status_operacional" checked={filters.status_operacional} onChange={handleChange} /><br /> <br />
+                    <label>Responsável</label>
+                    <input type="text" name="responsavel" value={filters.responsavel} onChange={handleChange} className={estilos.input}/>
+ 
+                    <label>Status Operacional *</label>
+                    <input type="checkbox" name="status_operacional" checked={filters.status_operacional} onChange={handleChange} className={estilos.checkBox}/>
  
                     <label>Tipo</label>
-                    <input className={estilos.campo} type="text" name="tipo" value={filters.tipo} onChange={handleChange} />
+                    <input type="text" name="tipo" value={filters.tipo} onChange={handleChange} className={estilos.input}/>
  
                     <label>Localização</label>
-                    <input className={estilos.campo} type="text" name="localizacao" value={filters.localizacao} onChange={handleChange} />
+                    <input type="text" name="localizacao" value={filters.localizacao} onChange={handleChange} className={estilos.input}/>
  
-                <button className={estilos.botao} type="submit">Filtrar</button>
+                    <div className={estilos.containerButton}>
+                        <button className={estilos.botao} type="submit">Filtrar</button>
+                    </div>
+                   
             </form>
  
-            {loading && <div>Carregando...</div>}
-            {error && <div>Erro ao buscar sensores: {error.message}</div>}
+            {loading && <div className={estilos.conteiner}><h1>Carregando...</h1></div>}
+            {error && <div className={estilos.conteiner}><h1>Erro ao buscar sensores: {error.message}</h1></div>}
  
-            <div className={estilos.conteiner}>
-                <h1>Sensores Filtrados</h1>
-                <ul>
-                    {sensors.map(sensor => (
-                        <li key={sensor.id}>{sensor.tipo} - {sensor.localizacao} - {sensor.responsavel}</li>
-                    ))}
-                </ul>
+            <div className={estilos.tabela}>
+                <h1 className={estilos.titulos}>Sensores Filtrados</h1>
+               
+                <table className={estilos.sensorTable}>
+                <thead className={estilos.sensorTable}>
+                        <tr className={estilos.sensorTable}>
+                            <th className={estilos.sensorTable}>ID</th>
+                            <th className={estilos.sensorTable}>Tipo</th>
+                            <th className={estilos.sensorTable}>Localização</th>
+                            <th className={estilos.sensorTable}>Responsável</th>
+                        </tr>
+                    </thead>
+                {sensors.map(sensor=>(
+                    <tbody className={estilos.sensorTable}>
+                        <td key={sensor.id}>{sensor.id}</td>
+                        <td>{sensor.tipo}</td>
+                        <td>{sensor.localizacao}</td>
+                        <td> {sensor.responsavel}</td>
+                    </tbody>
+                ))}  
+                </table>
+               
             </div>
         </div>
+        </body>
+       
     );
 };
- 
  
