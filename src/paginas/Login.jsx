@@ -31,11 +31,11 @@ export function Login(){
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
  
-            console.log("Login bem sucedido");
+            alert("Login bem sucedido");
             navigate('home');
             }
             catch(error){
-                    console.log("Erro na autenticação", error);
+                    alert("Erro na autenticação", error);
             }
     }
  

@@ -6,6 +6,8 @@ import {Sensor} from '../paginas/Sensor'
 import { Localizacao } from "../paginas/Localizacao"
 import { CadastroUsuario } from "../paginas/CadastroUsuario"
 import { CadastroSensores } from "../paginas/CadastroSensores"
+import { atualizarSensores } from "../paginas/AtualizarSensores"
+import { Filtro } from "../paginas/Filtro"
 
 
 
@@ -21,6 +23,11 @@ export function Rotas() {
             <Route path='/home' element={<Home />}>
                 <Route index element={<Sensor/>}></Route>
                 <Route path='localizacao' element={ <Localizacao /> } />
+                <Route path='cadUser' element={<CadastroUsuario/>}/>
+                <Route path='cadSensor' element={<CadastroSensores/>}/>
+                <Route path='atualizarSensor' element={<CadastroSensores/>}/>
+                <Route path='Filtro' element={<Filtro/>}/>
+
                
             </Route>
 

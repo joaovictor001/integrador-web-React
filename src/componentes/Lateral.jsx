@@ -17,16 +17,34 @@
 
                 </header>
                 <section>
-                    <Link className={estilos.botao} to='/cadastroSensor'>
-                        Cadastrar Sensor
+                <Link className={estilos.botao} 
+                      to='/home'>
+                        Home
                     </Link>
-                    <Link className={estilos.botao} to='/cadUsuario'>
+                    
+                    <Link className={estilos.botao} 
+                          to='/home/cadUser'>
                         Cadastrar Usuário
                     </Link>
                     <Link 
                         className={estilos.botao}
                         to='/home/localizacao'
                     >Mapa
+                    </Link>
+                    <Link 
+                        className={estilos.botao}
+                        to='/home/cadSensor'
+                    >Cadastrar Sensor
+                    </Link>
+                    <Link 
+                        className={estilos.botao}
+                        to='/home/atualizaSensor'
+                    >Atualizar Sensor
+                    </Link>
+                    <Link 
+                        className={estilos.botao}
+                        to='/home/Filtro'
+                    >Filtro
                     </Link>
 
                     <Link className={estilos.botao} to='/'>

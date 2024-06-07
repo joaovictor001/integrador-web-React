@@ -1,0 +1,57 @@
+.container {
+    background-color: #dbd4d4; /* Rosa */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.formulario {
+    margin-bottom: 20px;
+}
+
+.campo {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.campoCheckbox {
+    margin-top: 10px;
+}
+
+.botao {
+    background-color: #d11c6b;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.botao:hover {
+    background-color: #e75896; /* Cor do botão ao passar o mouse */
+}
+
+.conteiner {
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
