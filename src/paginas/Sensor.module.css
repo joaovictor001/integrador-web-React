@@ -22,4 +22,8 @@
 
 .table td a {
     color: blue; /* Define a cor dos links */
+    text-decoration: none;
+}
+.atualizar{
+    text-decoration: none;
 }

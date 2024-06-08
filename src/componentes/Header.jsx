@@ -6,7 +6,7 @@ export function Header(){
         <header className={estilos.conteiner}>
             
            
-            <p>Cidade Inteligente</p>
+            <p>Smart City Project</p>
           
 
            
