@@ -59,13 +59,14 @@ export function Login() {
                 {errors.senha && (
                     <p>{errors.senha.message}</p>
                 )}
-                <button className={estilos.botao}>Entrar</button>
+                <div  className={estilos.divbutton}><button className={estilos.botao}>Entrar</button>
                 <Link
-                    className={estilos.botao}
+                    className={estilos.botaoCad}
                     to='/cadastroUser'
                 >
                     Cadastre-se
                 </Link>
+                </div>
             </form>
         </div>
     );
