@@ -26,9 +26,9 @@ export function CadastroUsuario() {
     const obterToken = async () => {
         try {
             console.log("Tentando obter token...");
-            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
-                username: "smart_user",
-                password: "123456"
+            const response = await axios.post('http://localhost:8000/api/token', {
+                username: "admuser",
+                password: "1234"
             });
             const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
