@@ -50,7 +50,7 @@ export function CadastroUsuario() {
                 throw new Error("Token não encontrado. Por favor, tente novamente.");
             }
 
-            const response = await axios.post('http://127.0.0.1:8000/api/create_user/', 
+            const response = await axios.post('http://127.0.0.1:8000/api/create_user', 
             {
                 username: data.usuario,
                 email: data.email,
