@@ -29,7 +29,7 @@ export function Filtro() {
  
         try {
             const token = localStorage.getItem('access_token');
-            const response = await axios.post('http://127.0.0.1:8000/api/sensor_filter/', filters, {
+            const response = await axios.post('http://localhost:8000/api/sensor_filter/', filters, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

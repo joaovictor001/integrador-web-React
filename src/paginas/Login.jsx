@@ -23,7 +23,7 @@ export function Login() {
 
     async function obterDadosFormulario(data) {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
+            const response = await axios.post('http://localhost:8000/api/token', {
                 username: data.usuario,
                 password: data.senha
             });
@@ -44,7 +44,7 @@ export function Login() {
                     {...register('usuario')}
                     className={estilos.campo}
                     placeholder="Usuário"
-                    value={"joao"}
+                    
                 />
                 {errors.usuario && (
                     <p>{errors.usuario.message}</p>
@@ -54,7 +54,7 @@ export function Login() {
                     type="password"
                     className={estilos.campo}
                     placeholder="Senha"
-                    value={123}
+                    
                 />
                 {errors.senha && (
                     <p>{errors.senha.message}</p>

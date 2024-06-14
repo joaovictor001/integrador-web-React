@@ -76,7 +76,7 @@ h1 {
 .botao:hover {
     transform: scale(1.025);
     transition:  0.3s;
-    background: linear-gradient(90deg, rgb(211, 9, 127) 9%, rgb(216, 111, 176) 100%); /* Gradiente rosa */
+    background: #22336d
 }
  
 .titulos{

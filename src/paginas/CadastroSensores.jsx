@@ -6,13 +6,15 @@ import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const schemaCadastro = z.object({
     tipo: z.string(),
     mac_address: z.string(),
-    latitude: z.number(),
-    longitude: z.number(),
+    latitude: z.string().refine(value => !isNaN(Number(value)), {
+        message: "A latitude deve ser um número.",
+    }).transform(value => parseFloat(value)),
+    longitude: z.string().refine(value => !isNaN(Number(value)), {
+        message: "A longitude deve ser um número.",
+    }).transform(value => parseFloat(value)),
     localizacao: z.string(),
     responsavel: z.string(),
     unidade_medida: z.string(),
@@ -27,7 +29,9 @@ export function CadastroSensores() {
     });
 
     async function obterDadosFormulario(data) {
+
         try {
+            const token = localStorage.getItem('access_token')
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/sensores/',
                 {
@@ -48,7 +52,7 @@ export function CadastroSensores() {
                 }
             );
             console.log("Cadastro bem-sucedido");
-            navigate('/');
+            navigate('/home');
         } catch (error) {
             console.log("Erro no cadastro", error);
         }
@@ -61,7 +65,6 @@ export function CadastroSensores() {
                     {...register('tipo')}
                     className={estilos.campo}
                     placeholder="Tipo"
-                    
                 />
                 {errors.tipo &&(
                     <p>{errors.tipo.message}</p>
@@ -70,8 +73,6 @@ export function CadastroSensores() {
                     {...register('mac_address')}
                     className={estilos.campo}
                     placeholder="mac_address"
-                    type='number'
-                    
                 />
                 {errors.mac_address &&(
                     <p>{errors.mac_address.message}</p>
@@ -80,7 +81,7 @@ export function CadastroSensores() {
                     {...register('latitude')}
                     className={estilos.campo}
                     placeholder="latitude"
-                    
+                    type="text"
                 />
                 {errors.latitude &&(
                     <p>{errors.latitude.message}</p>
@@ -89,7 +90,7 @@ export function CadastroSensores() {
                     {...register('longitude')}
                     className={estilos.campo}
                     placeholder="longitude"
-                   
+                    type="text"
                 />
                 {errors.longitude &&(
                     <p>{errors.longitude.message}</p>
@@ -98,7 +99,6 @@ export function CadastroSensores() {
                     {...register('localizacao')}
                     className={estilos.campo}
                     placeholder="localizacao"
-                   
                 />
                 {errors.localizacao &&(
                     <p>{errors.localizacao.message}</p>
@@ -107,7 +107,6 @@ export function CadastroSensores() {
                     {...register('responsavel')}
                     className={estilos.campo}
                     placeholder="responsavel"
-                   
                 />
                 {errors.responsavel &&(
                     <p>{errors.responsavel.message}</p>
@@ -116,18 +115,15 @@ export function CadastroSensores() {
                     {...register('unidade_medida')}
                     className={estilos.campo}
                     placeholder="unidade_medida"
-                   
                 />
                 {errors.unidade_medida &&(
                     <p>{errors.unidade_medida.message}</p>
                 )}
                 <input
-                    
                     {...register('status_operacional')}
                     className={estilos.campo}
                     placeholder="status_operacional"
                     type="checkbox"
-                    
                 />
                 {errors.status_operacional &&(
                     <p>{errors.status_operacional.message}</p>
@@ -136,7 +132,6 @@ export function CadastroSensores() {
                     {...register('observacao')}
                     className={estilos.campo}
                     placeholder="Observação"
-                    
                 />
                 {errors.observacao &&(
                     <p>{errors.observacao.message}</p>
@@ -150,4 +145,4 @@ export function CadastroSensores() {
             </form>
         </div>
     );
-}    
+}
